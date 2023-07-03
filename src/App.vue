@@ -1,26 +1,25 @@
 <script>
+import axios from 'axios';
+const endpoint = 'https://41tyokboji.execute-api.eu-central-1.amazonaws.com/dev/api/v1/pokemons';
+import { store } from './data/store';
+import AppMain from './components/AppMain.vue';
+
+export default {
+  components: { AppMain },
+
+  created() {
+    axios.get(endpoint).then(res => {
+      store.pokemons = res.data.docs;
+    })
+  }
+}
+
 </script>
 
 <template>
-  <div class="container">
-    <div class="frame">
-      <div class="screen"></div>
-    </div>
-  </div>
+  <AppMain />
 </template>
 
 <style lang="scss">
 @use './assets/scss/style.scss';
-
-.frame {
-  background-color: #DEDEDE;
-  padding: 50px 20px;
-  margin-top: 150px;
-  border-radius: 30px;
-}
-
-.screen {
-  background-color: #666A6F;
-  padding: 20px 10px;
-}
 </style>
