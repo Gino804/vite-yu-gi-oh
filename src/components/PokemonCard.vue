@@ -8,14 +8,7 @@ export default {
     },
     methods: {
         getBgClass() {
-            let bg = '';
-            const type = this.type;
-
-            if (type === 'Grass') bg = 'bg-grass';
-            else if (type === 'Fire') bg = 'bg-fire';
-            else if (type === 'Water') bg = 'bg-water';
-
-            return bg;
+            return `bg-${this.type.toLowerCase()}`;
         }
     }
 }
