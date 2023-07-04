@@ -8,7 +8,7 @@ export default {
     },
     methods: {
         getBgClass() {
-            return `bg-${this.type.toLowerCase()}`;
+            return `bg-${this.type}`;
         }
     }
 }

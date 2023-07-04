@@ -1,16 +1,24 @@
 <script>
 export default {
+    data() {
+        return {
+            selectedOption: 'default'
+        }
+    },
+
     props: {
         defaultValue: String,
         label: String,
         options: Array
-    }
+    },
+
+    emits: ['changed']
 }
 </script>
 
 <template>
     <label for="dropdown">{{ label }}</label>
-    <select id="dropdown">
+    <select id="dropdown" @change="$emit('changed', selectedOption)" v-model="selectedOption">
         <option value="default">{{ defaultValue }}</option>
         <option v-for="option in options" :value="option">{{ option }}</option>
     </select>

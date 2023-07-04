@@ -23,4 +23,6 @@ export const store = reactive({
     "Steel",
     "Water",
   ],
+  filterType: "",
+  isFilterDefault: true,
 });

@@ -8,7 +8,18 @@ export default {
         return { store }
     },
 
-    components: { PokemonsList, DropdownComponent }
+    methods: {
+        setFilterType(selectedOption) {
+            store.filterType = selectedOption;
+            if (selectedOption !== 'default') store.isFilterDefault = false;
+            else store.isFilterDefault = true;
+            this.$emit('filter-changed');
+        }
+    },
+
+    components: { PokemonsList, DropdownComponent },
+
+    emits: ['filter-changed']
 }
 </script>
 
@@ -16,7 +27,8 @@ export default {
     <div class="container">
         <div class="frame">
             <div class="filters">
-                <DropdownComponent :defaultValue="'No filter'" :label="'Filter by type:'" :options="store.types" />
+                <DropdownComponent :defaultValue="'No filter'" :label="'Filter by type:'" :options="store.types"
+                    @changed="setFilterType" />
             </div>
             <div class="screen">
                 <PokemonsList />
