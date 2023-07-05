@@ -20,11 +20,11 @@ export default {
     <label for="dropdown">{{ label }}</label>
     <select id="dropdown" @change="$emit('changed', selectedOption)" v-model="selectedOption">
         <option value="default">{{ defaultValue }}</option>
-        <option v-for="option in options" :value="option">{{ option }}</option>
+        <option v-for="option in options" :key="option" :value="option">{{ option }}</option>
     </select>
 </template>
 
-<style>
+<style scoped>
 select {
     padding: 5px;
     border-radius: 5px;

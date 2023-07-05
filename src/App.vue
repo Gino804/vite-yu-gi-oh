@@ -17,38 +17,16 @@ export default {
   methods: {
     fetchPokemons() {
       store.isLoading = true;
-      if (store.isFilterDefault) {
-        axios.get(endpoint).then(res => {
-          store.pokemons = res.data.docs;
-          store.isLoading = false;
-        })
-      }
-      else {
-        let pokemonsType1 = [];
-        let pokemonsType2 = [];
-        const finalPokemons = [];
-        axios.get(`${endpoint}?eq[type1]=${store.filterType}`).then(res => {
-          pokemonsType1 = res.data.docs;
-          axios.get(`${endpoint}?eq[type2]=${store.filterType}`).then(res => {
-            pokemonsType2 = res.data.docs;
-            pokemonsType1.forEach(pokemonType1 => {
-              let lowestPokemon = pokemonType1;
-              pokemonsType2.forEach(pokemonType2 => {
-                if (pokemonType2.number < lowestPokemon.number && !finalPokemons.includes(pokemonType2)) lowestPokemon = pokemonType2;
-              })
-              finalPokemons.push(lowestPokemon);
-            });
-            if (finalPokemons.length < 10) {
-              pokemonsType2.forEach(pokemon => {
-                if (!finalPokemons.includes(pokemon)) finalPokemons.push(pokemon)
-              })
-            }
-            store.pokemons = finalPokemons;
-            store.isLoading = false;
-          })
-        })
-      }
+      if (store.isFilterDefault) this.fetchPokemon(endpoint);
+      else this.fetchPokemon(`${endpoint}?eq[type1]=${store.filterType}`);
     },
+
+    fetchPokemon(uri) {
+      axios.get(uri).then(res => {
+        store.pokemons = res.data.docs;
+        store.isLoading = false;
+      })
+    }
   },
 
   created() {
